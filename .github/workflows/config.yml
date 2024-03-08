@@ -7,8 +7,8 @@ jobs:
     environment: staging_environment
     steps:
       - uses: actions/checkout@v4
-      - run:
-          # name: Version information
+      - name: Version information
+        run:
           rustc --version; cargo --version; rustup --version
       # If you have committed your Cargo.lock file to version control
       # delete this step.
