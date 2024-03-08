@@ -1,8 +1,8 @@
 on: push
 jobs:
   build-and-test:
-    docker:
-      - image: cimg/rust:1.69
+    # docker:
+    #   - image: cimg/rust:1.69
     runs-on: ubuntu-latest
     environment: staging_environment
     steps:
