@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging_environment
     steps:
-      - checkout
+      - uses: actions/checkout@v4
       - run:
           name: Version information
           command: rustc --version; cargo --version; rustup --version
@@ -37,7 +37,7 @@ jobs:
       - image: cimg/rust:1.69
     runs-on: ubuntu-latest
     steps:
-      - checkout
+      - uses: actions/checkout@v4
       - run:
           name: Version information
           command: rustc --version; cargo --version; rustup --version
@@ -64,7 +64,7 @@ jobs:
       - image: cimg/rust:1.69
     runs-on: ubuntu-latest
     steps:
-      - checkout
+      - uses: actions/checkout@v4
       - run:
           name: Version information
           command: rustc --version; cargo --version; rustup --version
@@ -79,7 +79,7 @@ jobs:
     docker:
       - image: cimg/rust:1.69
     steps:
-      - checkout
+      - uses: actions/checkout@v4
       - run:
           name: Version information
           command: rustc --version; cargo --version; rustup --version
@@ -94,7 +94,7 @@ jobs:
     machine: true
     runs-on: ubuntu-latest
     steps:
-      - checkout
+      - uses: acrions/checkout@v4
       - run:
           name: Coverage with docker
           command: docker run --security-opt seccomp=unconfined -v "${PWD}:/volume" xd009642/tarpaulin cargo tarpaulin --ignore-tests
