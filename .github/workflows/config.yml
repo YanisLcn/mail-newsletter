@@ -3,6 +3,7 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/rust:1.69
+    environment: staging_environment
     steps:
       - checkout
       - run:
