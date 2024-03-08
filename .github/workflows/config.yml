@@ -10,11 +10,12 @@ jobs:
       - name: Version information
         run:
           rustc --version; cargo --version; rustup --version
+
       # If you have committed your Cargo.lock file to version control
       # delete this step.
-      # - run:
-      #     name: Calculate dependencies
-      #     command: cargo generate-lockfile
+      - name: Calculate dependencies
+        run: cargo generate-lockfile
+
       # - restore_cache:
       #     keys:
       #       - v1-cargo-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
