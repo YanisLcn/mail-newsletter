@@ -64,7 +64,7 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/.cargo/bin/cargo
-          key: v1-cargo-audit-{{ arch }}
+          uses: v1-cargo-audit-{{ arch }}
 
       - name: Check for known security issues in dependencies
         run: cargo audit
