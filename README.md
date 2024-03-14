@@ -1,2 +1,2 @@
 # mail-newsletter
-Project from ZeroToDev book
+Project from ZeroToProd book
