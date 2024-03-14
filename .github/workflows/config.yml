@@ -20,6 +20,34 @@ jobs:
       - name: Run all tests
         run: cargo test
 
+  # security:
+  #   docker:
+  #     - image: cimg/rust:1.69
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run:
+  #         name: Version information
+  #         command: rustc --version; cargo --version; rustup --version
+  #     - run:
+  #         name: Cache permission
+  #         command: |
+  #           sudo chown -R $(whoami):$(id -ng) /home/circleci/.cargo/bin/cargo
+  #     - restore_cache:
+  #         keys:
+  #           - v1-cargo-audit-{{ arch }}
+  #     - run:
+  #         name: Install dependency auditing tool
+  #         command: cargo install cargo-audit
+  #     - save_cache:
+  #         paths:
+  #           - /home/circleci/.cargo/bin/cargo
+  #         key: v1-cargo-audit-{{ arch }}
+  #     - run:
+  #         name: Check for known security issues in dependencies
+  #         command: cargo audit
+
+
   security:
     runs-on: ubuntu-latest
     steps:
@@ -32,6 +60,11 @@ jobs:
 
       - name: Install dependency auditing tool
         run: cargo install cargo-audit
+
+      - save_cache:
+          paths:
+            - /home/circleci/.cargo/bin/cargo
+          key: v1-cargo-audit-{{ arch }}
 
       - name: Check for known security issues in dependencies
         run: cargo audit
