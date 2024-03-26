@@ -1,9 +1,9 @@
 use std::net::TcpListener;
 
+use env_logger::Env;
 use mail_newsletter::configuration::get_configuration;
 use mail_newsletter::startup::run;
 use sqlx::PgPool;
-use env_logger::Env;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
