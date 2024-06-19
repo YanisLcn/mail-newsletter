@@ -11,6 +11,8 @@ pub struct FormData {
 
 pub async fn suscribe(form: web::Form<FormData>, pool: web::Data<PgPool>) -> HttpResponse {
     let request_id = Uuid::new_v4();
+    let request_span = tracing::info_span!("Adding a new subscriber.", %request_id, subscriber_email = %form.email, subscriber_name = %form.name);
+    let _request_span_guard = request_span.enter();
     tracing::info!(
         "[{}] - Adding '{}' '{}' as a new subscriber",
         request_id,
@@ -31,9 +33,12 @@ pub async fn suscribe(form: web::Form<FormData>, pool: web::Data<PgPool>) -> Htt
     .execute(pool.get_ref())
     .await
     {
-        Ok(_) => HttpResponse::Ok().finish(),
+        Ok(_) => {
+            tracing::info!("[{request_id}] - New subscriber details have been saved");
+            HttpResponse::Ok().finish()
+        }
         Err(e) => {
-            println!("Failed to execute query: {}", e);
+            println!("[{request_id}] - Failed to execute query: {}", e);
             HttpResponse::InternalServerError().finish()
         }
     }
